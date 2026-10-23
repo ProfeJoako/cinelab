@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090d18">
+  <title>AI Cinema Lab | Del celuloide al algoritmo</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="nav wrap"><a class="brand" href="#inicio">◉ AI CINEMA LAB</a><span>Experiencia de cine interactiva</span></header>
+  <section class="hero wrap" id="inicio">
+    <div><p class="eyebrow">CINE · TECNOLOGÍA · CREATIVIDAD</p><h1>Del celuloide<br><em>al algoritmo.</em></h1>
+      <p class="lead">Ponte en los zapatos de un cineasta: dirige la imagen, experimenta con el sonido, graba tu voz y descubre cómo funciona un efecto CGI básico.</p>
+      <a class="primary" href="#laboratorio">Entrar al laboratorio ↗</a><p class="footnote">Una experiencia educativa presentada por Profe Joako.</p>
+    </div>
+    <div class="poster" role="img" aria-label="Composición gráfica inspirada en lentes y fotogramas de cine"><span class="poster-label">EST. 1895 → 2026</span><div class="rings"><div class="inner-ring"></div></div><strong>LUZ.<br>SONIDO.<br>IMAGINACIÓN.</strong></div>
+  </section>
+  <main class="wrap">
+    <section class="intro"><p class="eyebrow">TU MISIÓN</p><h2>Cuatro estaciones, una historia.</h2><p>La tecnología cambia las herramientas; tú decides qué contar. Puedes explorar los módulos en el orden que prefieras.</p></section>
+    <section id="laboratorio" class="lab">
+      <nav class="tabs" aria-label="Estaciones de cine">
+        <button class="tab active" data-target="voz">01 · Voz</button><button class="tab" data-target="escena">02 · Dirección</button><button class="tab" data-target="sonido">03 · Sonido</button><button class="tab" data-target="cgi">04 · CGI</button>
+      </nav>
+      <article class="station active" id="voz">
+        <div class="heading"><div><p class="eyebrow">ESTACIÓN 01</p><h2>Laboratorio de doblaje</h2><p>Graba un diálogo en español, revisa su transcripción, tradúcelo y escúchalo doblado con una voz sintética en otro idioma.</p></div><img src="assets/joako-doblaje.png" alt="Profe Joako en estudio de doblaje" loading="lazy"></div>
+        <div class="workarea"><label for="phrase">Frase para demostración</label><select id="phrase"><option value="cine">El cine es el arte de contar historias.</option><option value="futuro">La tecnología transforma la manera de crear.</option></select>
+        <label for="lang">Idioma de la demostración</label><select id="lang"><option value="es-MX">Español</option><option value="en-US">Inglés</option><option value="fr-FR">Francés</option><option value="it-IT">Italiano</option></select>
+        <div class="actions"><button id="speak" class="primary">▶ Escuchar idioma</button><button id="stopSpeak" class="ghost">Detener voz</button></div><p id="speechPreview" class="notice" aria-live="polite"></p>
+        <hr><p>Ahora graba tu propia interpretación:</p><div class="actions"><button id="recVoice" class="primary">● Grabar mi voz</button><button id="stopVoice" class="ghost" disabled>■ Detener</button></div><audio id="playVoice" controls hidden></audio><a id="downloadVoice" class="download" hidden>Descargar grabación</a><p id="voiceStatus" class="status" aria-live="polite">Se pedirá permiso para usar el micrófono.</p>
+        <section class="dubbing-panel" aria-label="Doblaje traducido"><h3>Tu estudio de doblaje internacional</h3>
+        <p class="subtle">Al grabar intentaremos reconocer tus palabras en español. Si el navegador no ofrece reconocimiento de voz, puedes escribir o corregir el diálogo.</p>
+        <label for="transcript">Texto original (editable)</label><textarea id="transcript" rows="3" placeholder="Graba y habla en español, o escribe aquí tu diálogo..."></textarea>
+        <label for="targetLang">Idioma de doblaje</label><select id="targetLang"><option value="en-US">Inglés</option><option value="fr-FR">Francés</option><option value="it-IT">Italiano</option><option value="de-DE">Alemán</option><option value="pt-BR">Portugués</option><option value="ja-JP">Japonés</option><option value="es-MX">Español</option></select>
+        <div class="actions"><button id="translateVoice" class="primary">Traducir diálogo</button><button id="speakTranslated" class="ghost" disabled>▶ Escuchar doblaje</button><button id="stopTranslated" class="ghost">■ Detener</button></div>
+        <label for="translatedText">Texto traducido</label><textarea id="translatedText" rows="3" readonly placeholder="Aquí aparecerá tu traducción"></textarea>
+        <label for="voiceChoice">Voz disponible en tu dispositivo</label><select id="voiceChoice"><option value="">Automática según idioma</option></select>
+        <label for="voiceRate">Velocidad de doblaje: <output id="rateValue">1.0</output>×</label><input type="range" id="voiceRate" min="0.7" max="1.3" value="1" step="0.1">
+        <p class="status" id="translateStatus" aria-live="polite">La traducción necesita internet y utiliza un servicio externo gratuito. No conserva el timbre original de tu voz.</p></section></div>
+      </article>
+      <article class="station" id="escena">
+        <div class="heading"><div><p class="eyebrow">ESTACIÓN 02</p><h2>Dirige la emoción</h2><p>Observa cómo cambia una toma con decisiones de color, contraste y exposición. Se trata de <strong>corrección visual</strong>, no IA generativa.</p></div></div>
+        <div class="workarea"><div class="screen"><video id="camera" autoplay playsinline muted></video><span class="rec-label">● LIVE VIEW</span></div>
+        <div class="actions"><button id="startCam" class="primary">Activar cámara</button><button id="stopCam" class="ghost">Apagar cámara</button></div><label for="look">Look cinematográfico</label><select id="look"><option value="none">Original</option><option value="noir">Cine negro</option><option value="terror">Suspenso</option><option value="romance">Romance</option><option value="scifi">Ciencia ficción</option></select><button id="photo" class="primary">Capturar fotograma</button><canvas id="shot" hidden></canvas><a id="downloadPhoto" class="download" hidden>Descargar fotograma</a><p id="camStatus" class="status" aria-live="polite"></p></div>
+      </article>
+      <article class="station" id="sonido">
+        <div class="heading"><div><p class="eyebrow">ESTACIÓN 03</p><h2>El sonido cambia todo</h2><p>Explora bandas sonoras originales sintetizadas en tu navegador y descubre cómo cambian las emociones de una escena.</p></div><img src="assets/joako-iluminacion.png" alt="Profe Joako ajustando iluminación cinematográfica" loading="lazy"></div>
+        <div class="workarea"><label for="mood">Atmósfera</label><select id="mood"><option value="suspense">Suspenso</option><option value="romance">Romance</option><option value="scifi">Ciencia ficción</option><option value="action">Acción</option><option value="horror">Terror</option><option value="nature">Naturaleza</option></select><label for="moodVolume">Volumen <output id="moodVolumeValue">60%</output></label><input id="moodVolume" type="range" min="0" max="100" value="60"><div class="actions"><button id="playMood" class="primary">▶ Escuchar atmósfera</button><button id="stopMood" class="ghost">■ Silenciar</button></div><p class="notice">Audio original generado por código, sin MP3 ni archivos externos. Comienza con volumen moderado y prueba audífonos.</p><p class="status" id="moodStatus" aria-live="polite">Elige una atmósfera para comenzar.</p></div>
+      </article>
+      <article class="station" id="cgi">
+        <div class="heading"><div><p class="eyebrow">ESTACIÓN 04</p><h2>Truco CGI: pantalla verde</h2><p>Usa un fondo <strong>verde uniforme</strong> detrás de ti y sustitúyelo en vivo por un escenario digital. Es chroma key tradicional, una técnica de efectos visuales, <strong>no IA</strong>.</p></div></div>
+        <div class="workarea"><div class="screen"><canvas id="keyCanvas" width="640" height="360" aria-label="Vista de cámara con reemplazo de pantalla verde"></canvas></div><div class="actions"><button id="startKey" class="primary">Iniciar efecto CGI</button><button id="stopKey" class="ghost">Detener</button></div><label for="keyTolerance">Sensibilidad al verde</label><input type="range" id="keyTolerance" min="20" max="130" value="55"><p id="keyStatus" class="status" aria-live="polite">Necesitas una tela o superficie verde detrás de ti para ver el efecto.</p><p class="notice">CGI significa imágenes generadas por computadora. Este ejercicio combina un fondo digital dibujado por código con el video real mediante chroma key.</p></div>
+      </article>
+    </section>
+    <section class="end"><div><p class="eyebrow">ÚLTIMA ESCENA</p><h2>Si una máquina puede generar imágenes y voces,<br>¿qué vuelve indispensable al ser humano en el cine?</h2><p>La herramienta crea posibilidades; la intención, la sensibilidad y las decisiones construyen la historia.</p></div><img src="assets/joako-claqueta.png" alt="Profe Joako con claqueta" loading="lazy"></section>
+  </main>
+  <footer class="wrap">AI Cinema Lab · Experiencia educativa · Profe Joako · Las grabaciones permanecen en tu navegador; si solicitas traducción, el texto se envía a un servicio externo.</footer>
+</body>
+</html>
